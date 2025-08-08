@@ -5,12 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FaSpinner } from 'react-icons/fa';
 import { UserContext } from '../Context/UserContext';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+
 
 export default function Register() {
   let { setToken } = useContext(UserContext);  
   let navigate = useNavigate();
   const [errorApi, seterrorApi] = useState(null);
   const [isloading, setisloading] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
+
 
   async function handleRegister(values) {
     setisloading(true);
@@ -67,13 +72,18 @@ export default function Register() {
   });
 
   return (
-    <div>
-      {errorApi ? 
-        <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400" role="alert">
+    <div className="min-h-screen py-10 px-4">
+      {errorApi && (
+        <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400">
           {errorApi}
-        </div> : null}
-      <form className="max-w-xl mx-auto" onSubmit={formikRegister.handleSubmit}>
-        <h2 className='text-center m-10 text-3xl font-bold'>Register Now</h2>
+        </div>
+      )}
+
+      <form
+        className="w-full max-w-sm sm:max-w-xl mx-auto px-4"
+        onSubmit={formikRegister.handleSubmit}
+      >
+        <h2 className='text-center my-10 text-2xl sm:text-3xl font-bold'>Register Now</h2>
 
         {/* Name */}
         <div className="relative z-0 w-full mb-5 group">
@@ -85,15 +95,19 @@ export default function Register() {
             type="text"
             name="name"
             id="name"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                       border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 
+                       focus:outline-none focus:ring-0 focus:border-green-600 peer"
             placeholder=" "
           />
-          <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">Enter Your Name</label>
+          <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 
+                       dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 
+                       origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">
+            Enter Your Name
+          </label>
         </div>
         {formikRegister.errors.name && formikRegister.touched.name && (
-          <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
-            {formikRegister.errors.name}
-          </div>
+          <div className="text-sm text-red-800 mb-4">{formikRegister.errors.name}</div>
         )}
 
         {/* Email */}
@@ -106,58 +120,82 @@ export default function Register() {
             type="email"
             name="email"
             id="email"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                       border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 
+                       focus:outline-none focus:ring-0 focus:border-green-600 peer"
             placeholder=" "
           />
-          <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">Email address</label>
+          <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 
+                       dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 
+                       origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">
+            Email Address
+          </label>
         </div>
         {formikRegister.errors.email && formikRegister.touched.email && (
-          <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
-            {formikRegister.errors.email}
-          </div>
+          <div className="text-sm text-red-800 mb-4">{formikRegister.errors.email}</div>
         )}
 
         {/* Password */}
-        <div className="relative z-0 w-full mb-5 group">
-          <input
-            onBlur={formikRegister.handleBlur}
-            onChange={formikRegister.handleChange}
-            value={formikRegister.values.password}
-            autoComplete="new-password"
-            type="password"
-            name="password"
-            id="password"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
-            placeholder=" "
-          />
-          <label htmlFor="password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">Enter your Password</label>
-        </div>
-        {formikRegister.errors.password && formikRegister.touched.password && (
-          <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
-            {formikRegister.errors.password}
+          <div className="relative z-0 w-full mb-5 group">
+            <input
+              onBlur={formikRegister.handleBlur}
+              onChange={formikRegister.handleChange}
+              value={formikRegister.values.password}
+              autoComplete="new-password"
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              id="password"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                        border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 
+                        focus:outline-none focus:ring-0 focus:border-green-600 peer pr-10"
+              placeholder=" "
+            />
+            <label htmlFor="password" className="peer-focus:font-medium absolute text-sm text-gray-500 
+                        dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 
+                        origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">
+              Enter Your Password
+            </label>
+            <div
+              className="absolute right-2 top-2.5 text-xl text-gray-600 cursor-pointer"
+              onClick={() => setShowPassword(prev => !prev)}
+            >
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </div>
           </div>
-        )}
+          {formikRegister.errors.password && formikRegister.touched.password && (
+            <div className="text-sm text-red-800 mb-4">{formikRegister.errors.password}</div>
+          )}
 
         {/* RePassword */}
-        <div className="relative z-0 w-full mb-5 group">
-          <input
-            onBlur={formikRegister.handleBlur}
-            onChange={formikRegister.handleChange}
-            value={formikRegister.values.rePassword}
-            autoComplete="new-repassword"
-            type="password"
-            name="rePassword"
-            id="rePassword"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
-            placeholder=" "
-          />
-          <label htmlFor="rePassword" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">Confirm Password</label>
-        </div>
-        {formikRegister.errors.rePassword && formikRegister.touched.rePassword && (
-          <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
-            {formikRegister.errors.rePassword}
+          <div className="relative z-0 w-full mb-5 group">
+            <input
+              onBlur={formikRegister.handleBlur}
+              onChange={formikRegister.handleChange}
+              value={formikRegister.values.rePassword}
+              autoComplete="new-repassword"
+              type={showRePassword ? 'text' : 'password'}
+              name="rePassword"
+              id="rePassword"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                        border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 
+                        focus:outline-none focus:ring-0 focus:border-green-600 peer pr-10"
+              placeholder=" "
+            />
+            <label htmlFor="rePassword" className="peer-focus:font-medium absolute text-sm text-gray-500 
+                        dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 
+                        origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">
+              Confirm Password
+            </label>
+            <div
+              className="absolute right-2 top-2.5 text-xl text-gray-600 cursor-pointer"
+              onClick={() => setShowRePassword(prev => !prev)}
+            >
+              {showRePassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </div>
           </div>
-        )}
+          {formikRegister.errors.rePassword && formikRegister.touched.rePassword && (
+            <div className="text-sm text-red-800 mb-4">{formikRegister.errors.rePassword}</div>
+          )}
 
         {/* Phone */}
         <div className="relative z-0 w-full mb-5 group">
@@ -169,26 +207,31 @@ export default function Register() {
             type="text"
             name="phone"
             id="phone"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                       border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 
+                       focus:outline-none focus:ring-0 focus:border-green-600 peer"
             placeholder=" "
           />
-          <label htmlFor="phone" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">Enter your Phone Number</label>
+          <label htmlFor="phone" className="peer-focus:font-medium absolute text-sm text-gray-500 
+                       dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 
+                       origin-[0] peer-focus:text-green-600 peer-focus:dark:text-green-500">
+            Enter Your Phone Number
+          </label>
         </div>
         {formikRegister.errors.phone && formikRegister.touched.phone && (
-          <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
-            {formikRegister.errors.phone}
-          </div>
+          <div className="text-sm text-red-800 mb-4">{formikRegister.errors.phone}</div>
         )}
 
-        {/* Submit */}
+        {/* Submit Button */}
         <button
           disabled={!formikRegister.isValid || !formikRegister.dirty}
           type="submit"
-          className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 relative left-60 mt-10"
+          className="w-full text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 
+                     hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 
+                     dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6"
         >
-          {isloading ? <FaSpinner className="animate-spin" /> : "Register"}
+          {isloading ? <FaSpinner className="animate-spin mx-auto" /> : "Register"}
         </button>
-
       </form>
     </div>
   );

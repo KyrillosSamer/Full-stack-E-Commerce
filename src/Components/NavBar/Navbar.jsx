@@ -50,6 +50,9 @@ export default function Navbar() {
             <li><NavLink to="/cart">Cart</NavLink></li>
             <li><NavLink to="/products">Products</NavLink></li>
             <li><NavLink to="/brands">Brands</NavLink></li>
+            <li><NavLink to="/Address">Address</NavLink></li>
+            <li><NavLink to="/Orders">Orders</NavLink></li>
+
           </ul>
 
           {/* Right social icons and auth */}

@@ -3,10 +3,16 @@ import axios from 'axios';
 import { FaSpinner, FaStar } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { useCart } from '../Context/CartContext';
+
+
 
 export default function Products() {
   const navigate = useNavigate();
   const token = localStorage.getItem("userToken");
+const { fetchCart } = useCart();
+
 
   // Call Products API
   async function callApi() {
@@ -16,29 +22,31 @@ export default function Products() {
 
   // Add to Cart Function
   async function addToCart(productId) {
-    if (!token) {
-      alert("Please login first.");
-      navigate("/Login");
-      return;
-    }
-
-    try {
-      const res = await axios.post(
-        "https://ecommerce.routemisr.com/api/v1/cart",
-        { productId },
-        {
-          headers: {
-            token: token,
-          },
-        }
-      );
-      alert("✅ Product added to cart!");
-      console.log("Cart Response:", res.data);
-    } catch (err) {
-      console.error("Failed to add to cart:", err?.response?.data || err.message);
-      alert("Failed to add to cart: " + (err?.response?.data?.message || err.message));
-    }
+  if (!token) {
+    toast.error("Please login first.");
+    navigate("/Login");
+    return;
   }
+
+  try {
+    const res = await axios.post(
+      "https://ecommerce.routemisr.com/api/v1/cart",
+      { productId },
+      {
+        headers: {
+          token: token,
+        },
+      }
+    );
+
+    toast.success("Product added to cart!");
+    fetchCart();
+  } catch (err) {
+    console.error("Failed to add to cart:", err?.response?.data || err.message);
+    toast.error("Failed to add to cart: " + (err?.response?.data?.message || err.message));
+  }
+}
+
 
   // Fetching products with React Query
   const { data, isError, error, isLoading } = useQuery({
@@ -119,7 +127,7 @@ export default function Products() {
 
             <button
               onClick={() => addToCart(product.id)}
-              className="mt-4 w-full bg-white text-green-600 border border-green-600 hover:bg-green-600 hover:text-white py-2 px-3 rounded-lg font-semibold transition-all duration-300"
+              className="hover:cursor-pointer mt-4 w-full bg-white text-green-600 border border-green-600 hover:bg-green-600 hover:text-white py-2 px-3 rounded-lg font-semibold transition-all duration-300"
             >
               Add to Cart
             </button>
