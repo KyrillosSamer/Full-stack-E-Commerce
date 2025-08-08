@@ -71,28 +71,22 @@ export default function Cart() {
 
   // Create order dynamically with user's address
  async function createOrder() {
-  if (!selectedAddressId) {
-    alert("Please select a shipping address before checkout.");
-    return;
-  }
-
   try {
-    setLoadingOrder(true);
     const cartId = cartData?.data?._id;
     if (!cartId) {
       alert("No cart found to place an order.");
       return;
     }
 
+    setLoadingOrder(true);
+
     const res = await axios.post(
       `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}`,
-      {
-        url: 'http://localhost:5173/', 
-      },
+      { url: 'http://localhost:5173/' }, 
       { headers: { token } }
     );
 
-    if (res.data?.session?.url) {
+    if (res.data && res.data.session && res.data.session.url) {
       window.location.href = res.data.session.url;
     } else {
       alert("Failed to initiate payment session.");
@@ -104,7 +98,6 @@ export default function Cart() {
     setLoadingOrder(false);
   }
 }
-
 
 
 
