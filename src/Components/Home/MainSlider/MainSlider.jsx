@@ -28,7 +28,7 @@ export default function MainSlider() {
               <img
                 src={photo1}
                 alt='Main Slide'
-                className='w-full h-[140px] sm:h-[280px] object-cover block'
+                className='w-full h-[160px] sm:h-[280px] object-cover block'
                 style={{ display: 'block' }}
               />
             </div>
@@ -36,7 +36,7 @@ export default function MainSlider() {
               <img
                 src={photo2}
                 alt='Slide 2'
-                className='w-full h-[140px] sm:h-[280px] object-cover block'
+                className='w-full h-[160px] sm:h-[280px] object-cover block'
                 style={{ display: 'block' }}
               />
             </div>
@@ -44,7 +44,7 @@ export default function MainSlider() {
               <img
                 src={photo3}
                 alt='Slide 3'
-                className='w-full h-[140px] sm:h-[280px] object-cover block'
+                className='w-full h-[160px] sm:h-[280px] object-cover block'
                 style={{ display: 'block' }}
               />
             </div>
@@ -55,13 +55,13 @@ export default function MainSlider() {
           <img
             src={banner1}
             alt='Banner 1'
-            className='w-full h-[70px] sm:h-[140px] object-cover block'
+            className='w-full h-[80px] sm:h-[140px] object-cover block'
             style={{ display: 'block' }}
           />
           <img
             src={banner2}
             alt='Banner 2'
-            className='w-full h-[70px] sm:h-[140px] object-cover block'
+            className='w-full h-[80px] sm:h-[140px] object-cover block'
             style={{ display: 'block' }}
           />
         </div>
