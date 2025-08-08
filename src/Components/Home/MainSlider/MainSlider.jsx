@@ -7,35 +7,66 @@ import Slider from 'react-slick';
 
 export default function MainSlider() {
 
-const settings = {
-  dots: false,
-  infinite: true,
-  speed: 5000,           
-  slidesToShow: 1,        
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 0,      
-  cssEase: "linear",      
-};
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 5000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 0,
+    cssEase: "linear",
+  };
 
-  return (<>
+  return (
+    <>
+      <div className='grid grid-cols-[2fr_2fr] w-[80%] mx-auto mb-5 gap-0'>
 
-      <div className='grid grid-cols-[2fr_2fr] w-[80%] mx-auto  mb-5'>
-      <div className='overflow-hidden'>
+        <div className='overflow-hidden'>
+          <Slider {...settings}>
+            <div>
+              <img
+                src={photo1}
+                alt='Main Slide'
+                className='w-full h-[140px] sm:h-[280px] object-cover block'
+                style={{ display: 'block' }}
+              />
+            </div>
+            <div>
+              <img
+                src={photo2}
+                alt='Slide 2'
+                className='w-full h-[140px] sm:h-[280px] object-cover block'
+                style={{ display: 'block' }}
+              />
+            </div>
+            <div>
+              <img
+                src={photo3}
+                alt='Slide 3'
+                className='w-full h-[140px] sm:h-[280px] object-cover block'
+                style={{ display: 'block' }}
+              />
+            </div>
+          </Slider>
+        </div>
 
+        <div className='flex flex-col gap-0'>
+          <img
+            src={banner1}
+            alt='Banner 1'
+            className='w-full h-[70px] sm:h-[140px] object-cover block'
+            style={{ display: 'block' }}
+          />
+          <img
+            src={banner2}
+            alt='Banner 2'
+            className='w-full h-[70px] sm:h-[140px] object-cover block'
+            style={{ display: 'block' }}
+          />
+        </div>
 
-     <Slider {...settings} className=' '>
-       <div ><img src={photo1} alt='Main Slide' className='w-[100%] h-[280px] object-cover ' /></div>
-       <div><img src={photo2} alt='Slide 2'     className='w-[100%] h-[280px] object-cover  ' /> </div>
-       <div> <img src={photo3} alt='Slide 3'   className='w-[100%] h-[280px] object-cover ' /></div>      
-    </Slider>
-    </div>
-
-    <div >
-    <img src={banner1} className='w-full h-[140px] object-fit'/>
-    <img src={banner2} className='w-full h-[140px] object-fit'/>
-    </div>
-    </div>
+      </div>
     </>
   )
 }
