@@ -160,7 +160,7 @@ if (!cartData) {
           ))}
 
           {/* Purchase button */}
-          <div className="mt-6 text-right">
+          <div className="mt-6 flex justify-center">
         <button
             onClick={createOrder}
             className="px-6 py-2 bg-[#00c650] text-white rounded hover:bg-green-800 
