@@ -53,7 +53,7 @@ export default function CategorySlider() {
 
   return (
     <div className='w-4/5 mx-auto my-8'> 
-      <h2 className='text-xl font-semibold mb-4'>Shop Popular Categories</h2>
+      <h2 className='text-xl font-semibold mb-8'>Shop Popular Categories</h2>
       <Slider {...settings}> 
         {categories.map((category) => (
           <div key={category._id} className='text-center '>
